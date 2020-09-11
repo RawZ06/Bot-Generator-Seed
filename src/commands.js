@@ -85,7 +85,7 @@ const commands = {
         generateStandard(message, args)
     }),
     "!genstandard": new Command("!genstandard", "Generate a standard seed OoTRandomizer with Roman's fork.", null, (message) => {
-        generateStandard(message)
+        generateStandard(message, [])
     }),
     "!genrandom": new Command("!genrandom", "Generate a random settings seed OoTRandomizer with Roman's fork.", null, generateRandom),
     "!github": new Command("!github", "Get github link", null, (message) => {

@@ -83,6 +83,9 @@ const commands = {
     "!updateRoman": new Command("!updateRoman", "Update roman's fork", "Créateur", (message) => {
         exec("cd "+ __basedir +"/ootrando/OoT-Randomizer/; git pull", function(_err, stdout, _stderr) {
             message.reply(stdout)
+            exec(process.env.UPDATE, function(_err, stdout, _stderr) {
+                message.reply(stdout)
+            })
         })
     }),
     "!update": new Command("!update", "Update me", "Créateur", (message) => {

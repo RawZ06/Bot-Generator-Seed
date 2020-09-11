@@ -1,5 +1,7 @@
 const Command = require('./command')
 const exec = require('child_process').exec;
+const fs = require('fs');
+const readline = require('readline');
 
 function generateStandard(message, args)
 {
@@ -101,6 +103,10 @@ const commands = {
         exec("cd "+ __basedir +"; git pull", function(_err, stdout, _stderr) {
             message.reply(stdout)
         })
+    }),
+    "!version": new Command("!version", "Print version of Roman's fork", null, (message) => {
+        const version = fs.readFileSync(__basedir +"/ootrando/OoT-Randomizer/version.py", "utf8");
+        message.channel.send("Version " + version.split("'")[1])
     })
 }
 

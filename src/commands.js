@@ -1,18 +1,18 @@
 const Command = require('./command')
 const exec = require('child_process').exec;
 
-function generateStandard(message)
+function generateStandard(message, args)
 {
-    console.log("Generating")
-    message.channel.send("Generating");
+    console.log("Generating" + (args.length > 0 ? " with settings string " + args[0] : ""))
+    message.channel.send("Generating" + (args.length > 0 ? " with settings string " + args[0] : ""));
     exec("cp "+ __basedir +"/settings/settings.sav.std" + " " + __basedir +"/ootrando/OoT-Randomizer/settings.sav", function(_err, _stdout, _stderr) {
         console.log("standard settings received");
         message.channel.send("standard settings received");
-        exec("python3 "+ __basedir +"/ootrando/OoT-Randomizer/OoTRandomizer.py", function(err, _stdout, _stderr) {
+        exec("python3 "+ __basedir +"/ootrando/OoT-Randomizer/OoTRandomizer.py" + (args.length > 0 ? " --settings_string " + args[0] : ""), function(err, _stdout, _stderr) {
             if (err) 
             {
-                console.log('Sorry, I can\'t generate seed, please contact RawZ : ' + err);
-                message.reply('Sorry, I can\'t generate seed, please contact RawZ : ' + err)
+                console.log(message.content + ":" + err)
+                message.reply('Sorry, I can\'t generate seed' + (args.length > 0 ? ", please check your settings string (" + args[0] + ")" : "."))
             }
             else
             {
@@ -45,7 +45,8 @@ function generateRandom(message)
             exec("python3 "+ __basedir +"/ootrando/OoT-Randomizer/OoTRandomizer.py", function(err, _stdout, _stderr) {
                 if (err) 
                 {
-                    message.reply('Sorry, I can\'t generate seed, please contact RawZ : ' + err)
+                    console.log(message.content + ":" + err)
+                    message.reply('Sorry, I can\'t generate seed')
                 }
                 else
                 {
@@ -74,8 +75,16 @@ const commands = {
         }
         message.reply(answer)
     }),
-    "!generate": new Command("!generate", "Generate a standard seed OoTRandomizer with Roman's fork.", null, generateStandard),
-    "!genstandard": new Command("!genstandard", "Generate a standard seed OoTRandomizer with Roman's fork.", null, generateStandard),
+    "!generate": new Command("!generate", "Generate a seed with settings put in argument OoTRandomizer with Roman's fork.", null, (message, args) => {
+        if(args.length == 0) {
+            message.reply("Expected argument : settings_string")
+            return;
+        }
+        generateStandard(message, args)
+    }),
+    "!genstandard": new Command("!genstandard", "Generate a standard seed OoTRandomizer with Roman's fork.", null, (message) => {
+        generateStandard(message)
+    }),
     "!genrandom": new Command("!genrandom", "Generate a random settings seed OoTRandomizer with Roman's fork.", null, generateRandom),
     "!github": new Command("!github", "Get github link", null, (message) => {
         message.reply("Github : https://github.com/RawZ06/Bot-Generator-Seed")

@@ -6,12 +6,12 @@ class Command {
         this.role = role
     }
 
-    execute(message) {
+    execute(message, args) {
         if(this.role !== null && !message.member.roles.cache.some(role => role.name === this.role)) {
             message.reply("Sorry, you aren't authorized to use "+ this.name +", this command is only for " + this.role)
             return;
         }
-        this.action(message);
+        this.action(message, args);
     }
 
     help() {

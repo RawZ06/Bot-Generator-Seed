@@ -77,6 +77,9 @@ const commands = {
     "!generate": new Command("!generate", "Generate a standard seed OoTRandomizer with Roman's fork.", null, generateStandard),
     "!genstandard": new Command("!genstandard", "Generate a standard seed OoTRandomizer with Roman's fork.", null, generateStandard),
     "!genrandom": new Command("!genrandom", "Generate a random settings seed OoTRandomizer with Roman's fork.", null, generateRandom),
+    "!github": new Command("!github", "Get github link", null, (message) => {
+        message.reply("Github : https://github.com/RawZ06/Bot-Generator-Seed")
+    }),
     "!updateRoman": new Command("!updateRoman", "Update roman's fork", "Créateur", (message) => {
         exec("cd "+ __basedir +"/ootrando/OoT-Randomizer/; git pull", function(_err, stdout, _stderr) {
             message.reply(stdout)

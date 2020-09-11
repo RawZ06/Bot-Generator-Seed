@@ -1,0 +1,6 @@
+[submodule "ootrando/OoT-Randomizer"]
+	path = ootrando/OoT-Randomizer
+	url = https://github.com/Roman971/OoT-Randomizer.git
+[submodule "random-settings/OoTR-random-settings"]
+	path = random-settings/OoTR-random-settings
+	url = https://github.com/Hamsda/OoTR-random-settings.git

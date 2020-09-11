@@ -16,7 +16,7 @@ bot.on('message', function(message) {
     if(command !== null && command !== undefined)
     {
         console.log(message.author.username + " : " + message.content)
-        console.log(command)
+        // console.log(command)
         command.execute(message, args)
     }
 })

@@ -21,12 +21,14 @@ function generateStandard(message, args)
                 console.log("Seed Generated");
                 message.channel.send("Seed Generated");
                 exec("ls "+ __basedir +"/files", function(_err, stdout, _stderr) {
-                    const files = stdout.split('\n').filter(e => e.length > 0).map(e => "./files/" + e)
+                    const files_name = stdout.split('\n').filter(e => e.length > 0);
+                    const files = files_name.map(e => __basedir + "/files/" + e)
+                    message.channel.send("Seed " + files_name[0].split('.')[0] + " generated");
                     message.reply("Seed standard generated with spoiler log : ", {
                         files: files
                     });
                     exec("rm "+ __basedir +"/files/*", function() {
-                        console.log("Generated seed " + files[0])
+                        console.log("removing seed " + files[0])
                     });
                 })
             }
@@ -38,7 +40,7 @@ function generateRandom(message)
 {
     console.log("Generating")
     message.channel.send("Generating");
-    exec("python3 "+ __basedir +"/ootrando/OoT-Randomizer/MysterySettings.py", function(_err, _stdout, _stderr) {
+    exec("cd "+ __basedir +"/ootrando/OoT-Randomizer/; python3 MysterySettings.py; cd ../..", function(_err, _stdout, _stderr) {
         console.log("Random settings generated");
         message.channel.send("Random settings generated");
         exec("cp "+ __basedir +"/settings/settings.sav.ran" + " " + __basedir +"/ootrando/OoT-Randomizer/settings.sav", function(_err, _stdout, _stderr) {
@@ -55,12 +57,16 @@ function generateRandom(message)
                     console.log("Seed Generated");
                     message.channel.send("Seed Generated");
                     exec("ls "+ __basedir +"/files", function(_err, stdout, _stderr) {
-                        const files = stdout.split('\n').filter(e => e.length > 0).map(e => "./files/" + e)
+                        const files_name = stdout.split('\n').filter(e => e.length > 0);
+                        const files = files_name.map(e => __basedir + "/files/" + e)
+                        message.channel.send("Seed " + files_name[0].split('.')[0] + " generated");
                         message.reply("Seed random generated with spoiler log : ", {
                             files: files
                         });
+                        // for(let i=0; i<100; i++);
                         exec("rm "+ __basedir +"/files/*", function() {
-                            console.log("Generated seed " + files[0])
+                            message.channel.send("Seed removed on the server")
+                            console.log("Removing seed " + files_name[0])
                         });
                     })
                 }
@@ -107,6 +113,13 @@ const commands = {
     "!version": new Command("!version", "Print version of Roman's fork", null, (message) => {
         const version = fs.readFileSync(__basedir +"/ootrando/OoT-Randomizer/version.py", "utf8");
         message.channel.send("Version " + version.split("'")[1])
+    }),
+    "!clear": new Command("!clear", "Clear channel", "Créateur", (message) => {
+        if (message.member.hasPermission("MANAGE_MESSAGES")) {
+            message.channel.messages.fetch().then(messages => { // Fetches the messages
+                message.channel.bulkDelete(messages // Bulk deletes all messages that have been fetched and are not older than 14 days (due to the Discord API)
+            )});              
+        }
     })
 }
 

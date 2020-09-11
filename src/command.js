@@ -4,7 +4,6 @@ class Command {
         this.action = action;
         this.description = description
         this.role = role
-        console.log(this)
     }
 
     execute(message) {

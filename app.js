@@ -18,7 +18,4 @@ bot.on('message', function(message) {
         command.execute(message)
     }
 })
-
-// bot.login('NzUzNzQwODkwNjQzNzU5MTA0.X1ql6A.tSKFDrmHCBWkt8xp2mEFE4KEah0') //bot prod
-// bot.login('NzUzOTA3MDM4MDM1MjQ3MTk0.X1tApA.wimz_JROI7-1sUrzx_bzYzc5nP0') //bot dev
 bot.login(process.env.TOKEN)

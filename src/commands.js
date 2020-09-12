@@ -81,7 +81,7 @@ const commands = {
     "!help": new Command("!help", "Print this message", null, (message) => {
         let answer = "List of commands :\n";
         for(command of Object.values(commands)) {
-            answer += command.help()
+            answer += command.help(message)
         }
         log(answer);
         message.reply(answer)

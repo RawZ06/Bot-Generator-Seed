@@ -2,21 +2,21 @@ require('dotenv').config()
 const Discord = require('discord.js')
 const bot = new Discord.Client()
 const commands = require('./src/commands.js')
+const log = require('./src/log')
 global.__basedir = __dirname;
 
 bot.on('ready', function () {
-    console.log("Connected")
+    log("Connected")
 })
 
 bot.on('message', function(message) {
-    if (message.author.bot || process.env.CHANNELS.split(",").indexOf(message.channel.name) < 0) return;
+    if (message.author.bot || (process.env.CHANNELS.split(",").indexOf(message.channel.name) < 0 && message.channel.type !== 'dm')) return;
     const array_message = message.content.split(' ');
     const command = commands[array_message[0]]
     const args = array_message.slice(1)
     if(command !== null && command !== undefined)
     {
-        console.log(message.author.username + " : " + message.content)
-        // console.log(command)
+        log(message.author.username + " : " + message.content)
         command.execute(message, args)
     }
 })

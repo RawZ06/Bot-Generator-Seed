@@ -106,16 +106,16 @@ const commands = {
         exec("cd "+ __basedir +"/ootrando/OoT-Randomizer/; git pull", function(_err, stdout, _stderr) {
             log(stdout)
             message.reply(stdout)
-            exec(process.env.UPDATE, function(_err, stdout, _stderr) {
-                log(stdout)
-                message.reply(stdout)
-            })
         })
     }),
     "!update": new Command("!update", "Update me", "Créateur", (message) => {
         exec("cd "+ __basedir +"; git pull", function(_err, stdout, _stderr) {
             log(stdout)
             message.reply(stdout)
+            exec(process.env.UPDATE, function(_err, stdout, _stderr) {
+                log(stdout)
+                message.reply(stdout)
+            })
         })
     }),
     "!version": new Command("!version", "Print version of Roman's fork", null, (message) => {

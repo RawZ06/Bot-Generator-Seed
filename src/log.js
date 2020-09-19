@@ -6,9 +6,17 @@ function filename() {
 }
 
 function log(message) {
+    console.debug(message)
     fs.appendFile(filename(), "[" + new Date().toLocaleString("fr-FR", {timeZone: "Europe/Paris"}) + "] " + message + "\n", (err) => {
         if (err) throw err;
     });
 }
 
-module.exports = log;
+function err(message) {
+    console.debug(message)
+    fs.appendFile(filename(), "ERROR => [" + new Date().toLocaleString("fr-FR", {timeZone: "Europe/Paris"}) + "] " + message + "\n", (err) => {
+        if (err) throw err;
+    });
+}
+
+module.exports = { log, err };

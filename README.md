@@ -1,4 +1,6 @@
-# Bot-Generator-Seed
+# Bot-Generator-Seed ![https://badgen.net/badge/version/outdated/red](https://badgen.net/badge/version/outdated/red)
+
+WARNING : This version is outdated, the bot is migrated with python technology, to access it you can go on : https://github.com/RawZ06/Bot-Generator-Seed-py
 
 This is a repository to the discord bot ho generate standard and random settings seed.
 It's used on my discord channel : https://discord.gg/psSGn45
